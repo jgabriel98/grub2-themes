@@ -56,6 +56,8 @@ usage() {
   printf "  %-25s%s\n" "-s, --stylish" "stylish grub theme"
   printf "  %-25s%s\n" "-t, --tela" "tela grub theme"
   printf "  %-25s%s\n" "-v, --vimix" "vimix grub theme"
+  printf "  %-25s%s\n" "-c, --cyberlight" "Cyber Punk light grub theme - only on 1080p ultrawide"
+  printf "  %-25s%s\n" "-d, --cyberdark" "Cyber Punk dark grub theme  - only on 1080p ultrawide"
   printf "  %-25s%s\n" "-w, --white" "Install white icon version"
   printf "  %-25s%s\n" "-u, --ultrawide" "Install 2560x1080 background image - not available for slaze grub theme"
   printf "  %-25s%s\n" "-2, --2k" "Install 2k(2560x1440) background image"
@@ -73,6 +75,10 @@ install() {
     local name="Tela"
   elif [[ ${theme} == 'vimix' ]]; then
     local name="Vimix"
+  elif [[ ${theme} == 'cyberlight' ]]; then
+    local name="CyberLight"
+  elif [[ ${theme} == 'cyberdark' ]]; then
+    local name="CyberDark"
   else
     prompt -i "\n Run ./install.sh -h for help or install dialog"
     install_dialog
@@ -95,12 +101,18 @@ install() {
     exit 1
   fi
 
+  if [[ ${name} =~ ^(CyberLight|CyberDark)$ && ${screen} != '1080p_21:9' ]]; then
+    prompt -e "$name grub theme is only available for ultrawide 1080p"
+    exit 1
+  fi
+
   if [[ ${icon} == 'white' ]]; then
     local icon="white"
   else
     local icon="color"
   fi  
   
+
   # Checking for root access and proceed if it is present
   if [ "$UID" -eq "$ROOT_UID" ]; then
     clear
@@ -192,12 +204,16 @@ run_dialog() {
       1 "Vimix Theme" off  \
       2 "Tela Theme" on \
       3 "Stylish Theme" off  \
-      4 "Slaze Theme" off --output-fd 1 )
+      4 "Slaze Theme" off  \
+      5 "Cyber Punk light Theme" off  \
+      6 "Cyber Punk dark Theme" off --output-fd 1 )
       case "$tui" in
         1) theme="vimix"     ;;
         2) theme="tela"      ;;
         3) theme="stylish"   ;;
         4) theme="slaze"     ;;
+        5) theme="cyberlight" ;;
+        6) theme="cyberdark"  ;;
         *) operation_canceled ;;
      esac
 
@@ -275,6 +291,10 @@ remove() {
     local name="Tela"
   elif [[ ${theme} == 'vimix' ]]; then
     local name="Vimix"
+  elif [[ ${theme} == 'cyberlight' ]]; then
+    local name="CyberLight"
+  elif [[ ${theme} == 'cyberdark' ]]; then
+    local name="CyberDark"
   else
     prompt -i "\n Run ./install.sh -h for help!"
     exit 0
@@ -353,6 +373,12 @@ while [[ $# -ge 1 ]]; do
       ;;
     -v|--vimix)
       theme='vimix'
+      ;;
+    -c|--cyberlight)
+      theme='cyberlight'
+      ;;
+    -d|--cyberdark)
+      theme='cyberdark'
       ;;
     -w|--white)
       icon='white'

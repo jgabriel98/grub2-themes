@@ -22,6 +22,8 @@ _if no option used the terminal user interface will be show up_
 | -s, --stylish      | Stylish grub theme |
 | -t, --tela         | Tela grub theme |
 | -l, --slaze        | Slaze grub theme |
+| -c, --cyberlight   | Cyber Punk light grub theme - only on 1080p ultrawide|
+| -d, --cyberdark    | Cyber Punk dark grub theme  - only on 1080p ultrawide|
 | -w, --white        | Install white color icon version |
 | -u, --ultrawide    | Install 2560x1080 background image - not available for slaze theme|
 | -2, --2k           | Install 2k(2560x1440) background image |
