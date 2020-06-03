@@ -101,9 +101,22 @@ install() {
     exit 1
   fi
 
-  if [[ ${name} =~ ^(CyberLight|CyberDark)$ && ${screen} != '1080p_21:9' ]]; then
+  if [[ ${name} =~ ^(CyberLight|CyberDark)$ && ${screen} != *'1080'* ]]; then
     prompt -e "$name grub theme is only available for ultrawide 1080p"
     exit 1
+  fi
+
+  if [[ ${name} =~ ^(CyberLight|CyberDark) ]]; then
+    local extension='png'
+  else
+    local extension='jpg'
+  fi
+
+  #check if is a light theme
+  if [[ ${name} =~ ^(CyberLight)$ ]]; then
+    local themeconfig="${screen}-light"
+  else
+    local themeconfig="${screen}"
   fi
 
   if [[ ${icon} == 'white' ]]; then
@@ -127,14 +140,13 @@ install() {
     prompt -i "\n Installing ${name} ${icon} ${screen} theme..."
 
     cp -a "${REO_DIR}/common/"* "${THEME_DIR}/${name}"
-    cp -a "${REO_DIR}/config/theme-${screen}.txt" "${THEME_DIR}/${name}/theme.txt"
-    if [[ ${screen} == '1080p_21:9' ]]; then
-      cp -a "${REO_DIR}/backgrounds/${screen}/background-${theme}.png" "${THEME_DIR}/${name}/background.png"
-    else
-      cp -a "${REO_DIR}/backgrounds/${screen}/background-${theme}.jpg" "${THEME_DIR}/${name}/background.jpg"
-    fi
+    cp -a "${REO_DIR}/config/theme-${themeconfig}.txt" "${THEME_DIR}/${name}/theme.txt"
+    cp -a "${REO_DIR}/backgrounds/${screen}/background-${theme}.${extension}" "${THEME_DIR}/${name}/background.${extension}"
     cp -a "${REO_DIR}/assets/assets-${icon}/icons-${screen}" "${THEME_DIR}/${name}/icons"
     cp -a "${REO_DIR}/assets/assets-${icon}/select-${screen}/"*.png "${THEME_DIR}/${name}"
+
+    # Edit themeConfig background file extension
+    sed -i "s/background\.ext/background.${extension}/g" "${THEME_DIR}/${name}/theme.txt"
 
     # Set theme
     prompt -i "\n Setting ${name} as default..."

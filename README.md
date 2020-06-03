@@ -22,8 +22,8 @@ _if no option used the terminal user interface will be show up_
 | -s, --stylish      | Stylish grub theme |
 | -t, --tela         | Tela grub theme |
 | -l, --slaze        | Slaze grub theme |
-| -c, --cyberlight   | Cyber Punk light grub theme - only on 1080p ultrawide|
-| -d, --cyberdark    | Cyber Punk dark grub theme  - only on 1080p ultrawide|
+| -c, --cyberlight   | Cyber Punk light grub theme - only on 1080p|
+| -d, --cyberdark    | Cyber Punk dark grub theme  - only on 1080p|
 | -w, --white        | Install white color icon version |
 | -u, --ultrawide    | Install 2560x1080 background image - not available for slaze theme|
 | -2, --2k           | Install 2k(2560x1440) background image |
@@ -70,3 +70,11 @@ On the grub screen, `press c` to get the commandline, and enter `vbeinfo` or `vi
 ### Slaze grub theme
 
 ![Slaze grub theme](screenshots/grub-theme-slaze.jpg?raw=true)
+
+### Cyber Punk light grub theme
+can look broken in not ultrawide 1080
+![Slaze grub theme](screenshots/grub-theme-cyberpunklight.png?raw=true)
+
+### Cyber Punk dark grub theme
+can look broken in not ultrawide 1080
+![Slaze grub theme](screenshots/grub-theme-cyberpunkdark.png?raw=true)
