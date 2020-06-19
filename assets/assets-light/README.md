@@ -1,0 +1,1 @@
+this `select.svg` for light themes is not working properly (wrong colors i guess). So be carefull before running any render-select.sh script
