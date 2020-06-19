@@ -152,9 +152,9 @@ install() {
 
     # dirty edit themeConfig to correct menu width, when in cyberpunk theme
     if [[ ${screen}=='1080p' && ${name} =~ ^(CyberLight|CyberDark) ]]; then
-      echo " - DEBUG will change width"
-      sed -i "s/width = [[:digit:]]\+/width = 35/g" "${THEME_DIR}/${name}/theme.txt"
-      sed -i "s/left = [[:digit:]]\+/left = 25/g" "${THEME_DIR}/${name}/theme.txt"
+      prompt -w "applying quick fix for cyberpunk theme dimension on 1080p"
+      sed -i "0,/width = [[:digit:]]\+/{s//width = 35/}" "${THEME_DIR}/${name}/theme.txt"
+      sed -i "0,/left = [[:digit:]]\+/{s//left = 25/}" "${THEME_DIR}/${name}/theme.txt"
     fi
 
     # Set theme
