@@ -106,7 +106,7 @@ install() {
     exit 1
   fi
 
-  if [[ ${name} =~ ^(CyberLight|CyberDark) ]]; then
+  if [[ ${name} =~ ^(CyberLight|CyberDark)  || ${screen} == '1080p_21:9' ]]; then
     local extension='png'
   else
     local extension='jpg'
@@ -115,8 +115,10 @@ install() {
   #check if is a light theme
   if [[ ${name} =~ ^(CyberLight)$ ]]; then
     local themeconfig="${screen}-light"
+    local asset="light"
   else
     local themeconfig="${screen}"
+    local asset="dark"
   fi
 
   if [[ ${icon} == 'white' ]]; then
@@ -137,13 +139,13 @@ install() {
     mkdir -p "${THEME_DIR}/${name}"
 
     # Copy theme
-    prompt -i "\n Installing ${name} ${icon} ${screen} theme..."
+    prompt -i "\n Installing ${name} ${icon}_icon ${asset}_profile ${screen} theme..."
 
     cp -a "${REO_DIR}/common/"* "${THEME_DIR}/${name}"
     cp -a "${REO_DIR}/config/theme-${themeconfig}.txt" "${THEME_DIR}/${name}/theme.txt"
     cp -a "${REO_DIR}/backgrounds/${screen}/background-${theme}.${extension}" "${THEME_DIR}/${name}/background.${extension}"
-    cp -a "${REO_DIR}/assets/assets-${icon}/icons-${screen}" "${THEME_DIR}/${name}/icons"
-    cp -a "${REO_DIR}/assets/assets-${icon}/select-${screen}/"*.png "${THEME_DIR}/${name}"
+    cp -a "${REO_DIR}/assets/icons-${icon}/icons-${screen}" "${THEME_DIR}/${name}/icons"
+    cp -a "${REO_DIR}/assets/assets-${asset}/select-${screen}/"*.png "${THEME_DIR}/${name}"
 
     # Edit themeConfig background file extension
     sed -i "s/background\.ext/background.${extension}/g" "${THEME_DIR}/${name}/theme.txt"
