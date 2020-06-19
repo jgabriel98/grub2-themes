@@ -147,8 +147,15 @@ install() {
     cp -a "${REO_DIR}/assets/icons-${icon}/icons-${screen}" "${THEME_DIR}/${name}/icons"
     cp -a "${REO_DIR}/assets/assets-${asset}/select-${screen}/"*.png "${THEME_DIR}/${name}"
 
-    # Edit themeConfig background file extension
+    # Edit themeConfig to correct background file extension
     sed -i "s/background\.ext/background.${extension}/g" "${THEME_DIR}/${name}/theme.txt"
+
+    # dirty edit themeConfig to correct menu width, when in cyberpunk theme
+    if [[ ${screen}=='1080p' && ${name} =~ ^(CyberLight|CyberDark) ]]; then
+      echo " - DEBUG will change width"
+      sed -i "s/width = [[:digit:]]\+/width = 35/g" "${THEME_DIR}/${name}/theme.txt"
+      sed -i "s/left = [[:digit:]]\+/left = 25/g" "${THEME_DIR}/${name}/theme.txt"
+    fi
 
     # Set theme
     prompt -i "\n Setting ${name} as default..."
